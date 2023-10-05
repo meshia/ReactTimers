@@ -1,0 +1,11 @@
+.pageRoot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.timersList {
+    display: flex;
+    flex-flow: row wrap;
+
+}

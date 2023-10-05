@@ -1,0 +1,24 @@
+:root {
+  --base-text: #ffffff;
+  --base-background: #282c34;
+  --base-shadow: #000000;
+
+  --base-input-background: #dee6f8;
+  --base-button: #586e9c;
+  --base-button-hover: #374563;
+
+  --timer-background: #0e1116;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color: var(--base-text);
+  background-color: var(--base-background);
+}
+
+body {
+  margin: 0;
+}
