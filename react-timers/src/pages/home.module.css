@@ -4,8 +4,12 @@
     justify-content: center;
 }
 
+.addNewTimer {
+    display: flex;
+    flex-flow: row wrap;
+}
+
 .timersList {
     display: flex;
     flex-flow: row wrap;
-
 }

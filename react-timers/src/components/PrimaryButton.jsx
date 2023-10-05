@@ -1,6 +1,5 @@
 import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import AddIcon from '@mui/icons-material/Add';
 
 const StyledAddButton = styled(Button)({
     textTransform: 'capitalize',
@@ -13,13 +12,12 @@ const StyledAddButton = styled(Button)({
     }
 })
 
-const AddButton = ({ text, handleClick }) => {
+const PrimaryButton = ({ text, handleClick }) => {
     return (
         <StyledAddButton onClick={ handleClick }>
             { text }
-            <AddIcon fontSize='inherit' />
         </StyledAddButton>
     )
 }
 
-export default AddButton;
+export default PrimaryButton;
