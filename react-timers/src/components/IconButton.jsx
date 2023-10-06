@@ -1,7 +1,8 @@
 import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import DynamicIcon from './DynamicIcon';
 
-export const StyledButton = styled(Button)({
+const StyledIconButton = styled(Button)({
     textTransform: 'capitalize',
     padding: '6px 10px',
     margin: '6px 10px',
@@ -12,12 +13,13 @@ export const StyledButton = styled(Button)({
     }
 })
 
-const PrimaryButton = ({ text, handleClick }) => {
+const IconButton = ({ text, iconName, handleClick }) => {
     return (
-        <StyledButton onClick={ handleClick }>
+        <StyledIconButton onClick={ handleClick }>
             { text }
-        </StyledButton>
+            {/* <DynamicIcon iconName={iconName} /> */}
+        </StyledIconButton>
     )
 }
 
-export default PrimaryButton;
+export default IconButton;

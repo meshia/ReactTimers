@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useTimersContext } from "../context/timersContext";
 import PrimaryButton from '../components/PrimaryButton';
 import AddButton from '../components/AddButton';
+import PauseButton from '../components/PauseButton';
+import PlayButton from '../components/PlayButton';
+import StopButton from '../components/StopButton';
+import ResetButton from '../components/ResetButton';
 import NumberField from '../components/NumberField';
 import Timer from '../components/Timer';
 import styles from './home.module.css';
@@ -35,7 +39,9 @@ function Home() {
 
     const handleAddTimer = (e) => {
         if(timerInput > 0) {
-            if(highestTimer < timerInput) setHighestTimer(timerInput);
+            if(highestTimer < timerInput) {
+                setHighestTimer(timerInput);
+            };
             setTimersList(prev => [...prev, timerInput])
             setTimerInput(0);
         }
@@ -45,9 +51,12 @@ function Home() {
         setTimerInput(parseInt(value));
     }
 
-    const handleResetAllTimers = () => {
+    const handleResetAllTimers = (replay=false) => {
         timerState(false);
         setGlobalTimer(highestTimer);
+        if(replay) {
+            timerState(true);
+        }
     }
 
     const handleDeleteAllTimers = () => {
@@ -57,7 +66,7 @@ function Home() {
     }
 
     const handleStartAllTimers = () => {
-        setGlobalTimer(highestTimer);
+        if(globalTimer === 0) setGlobalTimer(highestTimer);
         timerState(true);
     }
 
@@ -76,11 +85,16 @@ function Home() {
                                  onChangeHandler={ handleTimerInput }
                                  placeholder="add a timer" />
                 </div>
-                <PrimaryButton text="reset all timers" handleClick={ handleResetAllTimers }/>
-                <PrimaryButton text="delete all timers" handleClick={ handleDeleteAllTimers }/>
-                <PrimaryButton text="start all timers" handleClick={ handleStartAllTimers }/>
+                <PrimaryButton text="reset all" handleClick={ handleResetAllTimers }/>
+                <PrimaryButton text="delete all" handleClick={ handleDeleteAllTimers }/>
+                <PrimaryButton text="start all" handleClick={ handleStartAllTimers }/>
             </section>
-            { !hideControllers && <section className="timers-controllers">timers controllers</section> }
+            { !hideControllers && <section className={styles.timersControllers}>
+                <PauseButton text="" handleClick={ ()=>setIsRunning(false) }/>
+                <PlayButton text="" handleClick={ ()=>setIsRunning(true) }/>
+                <StopButton text="" handleClick={ ()=>timerState(false) }/>
+                <ResetButton text="" handleClick={ ()=>handleResetAllTimers(true) }/>
+            </section> }
             <section className={styles.timersList}>
                 { timersList && timersList.map((timer, index) => {
                     return <Timer key={index} value={ timer } />

@@ -16,7 +16,15 @@ export const ContextProvider = ({ children }) => {
 
     useEffect(()=> {
         const storedTimers = localStorage.getItem("timersList");
-        if(storedTimers) setTimersList(storedTimers.split(","));
+        if(storedTimers) {
+            setTimersList(storedTimers.split(","));
+            storedTimers.split(",").map((timer)=>{
+                if(timer > highestTimer) {
+                    setHighestTimer(timer);
+                    setGlobalTimer(timer);
+                }
+            })
+        }
     }, [])
 
     useEffect(()=> {
