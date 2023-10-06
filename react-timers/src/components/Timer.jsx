@@ -25,20 +25,32 @@ const StyledTimer = styled('div')({
 })
 
 const Timer = ({ value }) => {
-    const [ countdown, setCountdown ] = useState("00:00");
+    const [ minutes, setMinutes ] = useState("00");
+    const [ seconds, setSeconds ] = useState("00");
+    const [ displayValue, setDisplayValue ] = useState("");
     const { highestTimer, globalTimer } = useTimersContext({});
+
+    useEffect(()=>{
+        setDisplayValue(
+            `${String(Math.floor(value / 60)).padStart(2, '0')}:${String(value % 60).padStart(2, '0')}`
+        )
+    },[])
 
     useEffect(()=> {
         console.log("globalTimer", globalTimer, "value", value);
         if(highestTimer - globalTimer <= value) {
-            setCountdown(globalTimer)
+            setMinutes(String(Math.floor(globalTimer / 60)).padStart(2, '0'))
+            setSeconds(String(globalTimer % 60).padStart(2, '0'))
+        } else {
+            setMinutes("00");
+            setSeconds("00");
         }
         
     },[ globalTimer ])
     return (
         <StyledTimer>
-            <h4>{ value }</h4>
-            <h2>{ countdown }</h2>
+            <h4>{ displayValue }</h4>
+            <h2>{ `${minutes}:${seconds}` }</h2>
         </StyledTimer>
     )
 }
