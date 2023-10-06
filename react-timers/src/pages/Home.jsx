@@ -24,16 +24,15 @@ function Home() {
     
     useEffect(()=> {
         let timerInterval;
-        if(isRunning && globalTimer > 0) {
+        if(isRunning && globalTimer < highestTimer) {
             timerInterval = setInterval(() => {
-                setGlobalTimer( globalTimer - 1)
+                setGlobalTimer( globalTimer + 1)
             }, 1000);
-        } else if(globalTimer === 0) {
+        } else if(globalTimer === highestTimer) {
             timerState(false);
-            setGlobalTimer(highestTimer);
             clearInterval(timerInterval);
         }
-        console.log("globalTimer", globalTimer, "isRunning", isRunning);
+        // console.log("globalTimer", globalTimer, "isRunning", isRunning);
         return () => clearInterval(timerInterval);
     }, [isRunning, globalTimer])
 
@@ -53,7 +52,7 @@ function Home() {
 
     const handleResetAllTimers = (replay=false) => {
         timerState(false);
-        setGlobalTimer(highestTimer);
+        setGlobalTimer(0);
         if(replay) {
             timerState(true);
         }
@@ -62,11 +61,12 @@ function Home() {
     const handleDeleteAllTimers = () => {
         timerState(false);
         setTimersList([]);
-        setHighestTimer(0); 
+        setHighestTimer(0);
+        setGlobalTimer(0);
     }
 
     const handleStartAllTimers = () => {
-        if(globalTimer === 0) setGlobalTimer(highestTimer);
+        if(globalTimer === highestTimer) setGlobalTimer(0);
         timerState(true);
     }
 
@@ -85,7 +85,7 @@ function Home() {
                                  onChangeHandler={ handleTimerInput }
                                  placeholder="add a timer" />
                 </div>
-                <PrimaryButton text="reset all" handleClick={ handleResetAllTimers }/>
+                <PrimaryButton text="reset all" handleClick={ ()=>handleResetAllTimers(false) }/>
                 <PrimaryButton text="delete all" handleClick={ handleDeleteAllTimers }/>
                 <PrimaryButton text="start all" handleClick={ handleStartAllTimers }/>
             </section>
