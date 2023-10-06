@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
+import HideButton from "./HideButton";
 import { useTimersContext } from "../context/timersContext";
 
 const StyledTimer = styled('div')({
@@ -11,6 +12,7 @@ const StyledTimer = styled('div')({
     backgroundColor: 'var(--timer-background)',
     width: '4em',
     height: '4em',
+    padding: '1em',
     alignItems: 'center',
     justifyContent: 'center',
     margin: '0.5em',
@@ -21,6 +23,21 @@ const StyledTimer = styled('div')({
     },
     h2: {
         margin: '0',
+    },
+    button: {
+        position: 'absolute',
+        bottom: '-0.5em',
+    },
+    '&.hide': {
+        width: '0.5em',
+        height: '0.5em',
+        padding: '0.5em',
+        h4: {
+            display: 'none'
+        },
+        h2: {
+            display: 'none'
+        }
     }
 })
 
@@ -28,6 +45,7 @@ const Timer = ({ value }) => {
     const [ minutes, setMinutes ] = useState("00");
     const [ seconds, setSeconds ] = useState("00");
     const [ displayValue, setDisplayValue ] = useState("");
+    const [ hideTimer, setHideTimer ] = useState(false);
     const { highestTimer, globalTimer } = useTimersContext({});
 
     useEffect(()=>{
@@ -37,7 +55,6 @@ const Timer = ({ value }) => {
     },[])
 
     useEffect(()=> {
-        // console.log("globalTimer", globalTimer, "value", value);
         if(highestTimer - globalTimer <= value) {
             setMinutes(String(Math.floor(globalTimer / 60)).padStart(2, '0'))
             setSeconds(String(globalTimer % 60).padStart(2, '0'))
@@ -46,11 +63,17 @@ const Timer = ({ value }) => {
             setSeconds("00");
         }
         
-    },[ globalTimer ])
+    },[ globalTimer ]);
+
+    const handleHide = () => {
+        setHideTimer(!hideTimer);
+    }
+
     return (
-        <StyledTimer>
+        <StyledTimer className={hideTimer ? 'hide' : ''}>
             <h4>{ displayValue }</h4>
             <h2>{ `${minutes}:${seconds}` }</h2>
+            <HideButton handleClick={ handleHide } />
         </StyledTimer>
     )
 }

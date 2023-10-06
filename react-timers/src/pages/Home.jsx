@@ -77,7 +77,7 @@ function Home() {
 
     return (
         <div className={styles.pageRoot}>
-            <section className={styles.manageTimers}>
+            { hideControllers && <section className={styles.manageTimers}>
                 <div className={styles.addNewTimer}>
                     <AddButton type="button" text="add new" handleClick={ handleAddTimer } />
                     <NumberField name="addTimerInput"
@@ -88,10 +88,13 @@ function Home() {
                 <PrimaryButton text="reset all" handleClick={ ()=>handleResetAllTimers(false) }/>
                 <PrimaryButton text="delete all" handleClick={ handleDeleteAllTimers }/>
                 <PrimaryButton text="start all" handleClick={ handleStartAllTimers }/>
-            </section>
+            </section> }
             { !hideControllers && <section className={styles.timersControllers}>
-                <PauseButton text="" handleClick={ ()=>setIsRunning(false) }/>
-                <PlayButton text="" handleClick={ ()=>setIsRunning(true) }/>
+                { isRunning ?
+                    <PauseButton text="" handleClick={ ()=>setIsRunning(false) }/>
+                    :
+                    <PlayButton text="" handleClick={ ()=>setIsRunning(true) }/>
+                }
                 <StopButton text="" handleClick={ ()=>timerState(false) }/>
                 <ResetButton text="" handleClick={ ()=>handleResetAllTimers(true) }/>
             </section> }

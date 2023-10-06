@@ -21,9 +21,7 @@ export const ContextProvider = ({ children }) => {
             const parsedTimers = storedTimers.split(",");
             setTimersList(parsedTimers);
             parsedTimers.forEach((timer)=>{
-                console.log("currHighest", currHighest, "timer", timer);
                 if(parseInt(timer) > parseInt(currHighest)) {
-                    console.log("HIT");
                     currHighest = timer;
                     setHighestTimer(currHighest);
                 }

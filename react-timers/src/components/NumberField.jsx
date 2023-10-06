@@ -2,13 +2,15 @@ import { styled } from "@mui/material/styles";
 import { TextField } from "@mui/material";
 
 const StyledNumberField = styled(TextField)({
-    display: 'flex',
-    borderRadius: '4px',
-    border: 'none',
-    boxShadow: 'none',
-    outline: 'none',
+    justifyContent: 'center',
     width: '3em',
-    backgroundColor: 'var(--base-input-background)',
+    input: {
+        borderRadius: '4px',
+        border: 'none',
+        boxShadow: 'none',
+        outline: 'none',
+        backgroundColor: 'var(--base-input-background)',
+    }
 });
 
 const NumberField = ({ name, value, onChangeHandler, placeholder}) => {
