@@ -37,7 +37,7 @@ const Timer = ({ value }) => {
     },[])
 
     useEffect(()=> {
-        console.log("globalTimer", globalTimer, "value", value);
+        // console.log("globalTimer", globalTimer, "value", value);
         if(highestTimer - globalTimer <= value) {
             setMinutes(String(Math.floor(globalTimer / 60)).padStart(2, '0'))
             setSeconds(String(globalTimer % 60).padStart(2, '0'))

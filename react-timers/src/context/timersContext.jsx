@@ -18,9 +18,12 @@ export const ContextProvider = ({ children }) => {
         const storedTimers = localStorage.getItem("timersList");
         let currHighest = 0;
         if(storedTimers) {
-            setTimersList(storedTimers.split(","));
-            storedTimers.split(",").map((timer)=>{
-                if(timer > currHighest) {
+            const parsedTimers = storedTimers.split(",");
+            setTimersList(parsedTimers);
+            parsedTimers.forEach((timer)=>{
+                console.log("currHighest", currHighest, "timer", timer);
+                if(parseInt(timer) > parseInt(currHighest)) {
+                    console.log("HIT");
                     currHighest = timer;
                     setHighestTimer(currHighest);
                 }

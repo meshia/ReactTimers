@@ -26,13 +26,13 @@ function Home() {
         let timerInterval;
         if(isRunning && globalTimer < highestTimer) {
             timerInterval = setInterval(() => {
-                setGlobalTimer( globalTimer + 1)
+                setGlobalTimer( globalTimer + 1);
             }, 1000);
         } else if(globalTimer === highestTimer) {
             timerState(false);
             clearInterval(timerInterval);
         }
-        // console.log("globalTimer", globalTimer, "isRunning", isRunning);
+        // console.log("globalTimer", globalTimer, "highestTimer", highestTimer, "isRunning", isRunning);
         return () => clearInterval(timerInterval);
     }, [isRunning, globalTimer])
 
